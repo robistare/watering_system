@@ -4,11 +4,11 @@
 RTC_DS3231 rtc;
 
 const int relayPins[] = {13, 12, 11, 10};  // Pins for the 4-channel relay module
-const int targetHour = 22;                 // Define the target hour for relay activation
-const int targetMinute = 16;               // Define the target minute for relay activation
+const int targetHour = 19;                 // Define the target hour for relay activation
+const int targetMinute = 00;               // Define the target minute for relay activation
 const int targetSecond = 0;               // Define the target second for relay activation
 
-const unsigned long relayActivationDurations[] = {25000, 47000, 9000, 11000};  // Define the duration in milliseconds for each relay module
+const unsigned long relayActivationDurations[] = {20, 45, 20, 20};  // Define the duration in seconds for each relay module
 
 void setup() {
   Serial.begin(9600);
@@ -45,7 +45,7 @@ void loop() {
   if (now.hour() == targetHour && now.minute() == targetMinute && now.second() == targetSecond) {
     for (int i = 0; i < 4; i++) {
       digitalWrite(relayPins[i], LOW);
-      delay(relayActivationDurations[i]);
+      delay(relayActivationDurations[i]*1000);
       digitalWrite(relayPins[i], HIGH);
     }
   }
